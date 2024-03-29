@@ -1,30 +1,33 @@
+import java.util.Scanner;
 
 public class Kruskal {
-    int [][] graph = {
-        
-        //1   2  3  4  5  6  7  8
-        {0, 0, 355, 0, 0, 0, 0, 695},
-        {0, 0, 74, 0, 0, 0, 348, 0},
-        {355, 74, 0, 262, 0, 0, 269, 0},
-        {0, 0, 262, 0, 0, 0, 242, 0},
-        {0, 0, 0, 0, 0, 230, 306, 0},
-        {0, 0, 0, 0, 230, 0, 83, 0},
-        {0, 348, 269, 242, 306, 83, 0, 151},
-        {695, 0, 0, 0, 0, 0, 151, 0}
-    };
-    int[] vertex = {1, 2, 3, 4, 5, 6, 7, 8};
-    int m = 0;
-    int n = vertex.length;
-    int tmp_v1;
-    int tmp_v2;
-    int tmp_e;
-
-    boolean [] visited = new boolean[graph.length];
-    boolean finish = false;
+    private int [][] graph;
+    private int[] vertex = {1, 2, 3, 4, 5, 6, 7, 8};
+    private int m = 0;
+    private int n = vertex.length;
+    private int tmp_v1;
+    private int tmp_v2;
+    private boolean [] visited;
     
     public Kruskal(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("--------Kruskal's Program------");
-        // System.out.println("Enter node 0 - 8 ");
+        System.out.println("*Enter row and col for Graph*");
+        System.out.print("row: ");
+        int row = sc.nextInt();
+        System.out.println();
+        System.out.print("col: ");
+        int col = sc.nextInt();
+        graph = new int[row][col];
+        visited = new boolean[graph.length];
+        System.out.println("------Enter edege in graph------");
+        for (int i = 0; i < graph.length; i++){
+            System.out.print("Enter num in row " + (i + 1) + " : ");
+            for (int j = 0; j < graph[0].length; j++){
+                graph[i][j] = sc.nextInt();
+            }
+        }
+        sc.close();
         runKruskal();
     }
     public void runKruskal(){

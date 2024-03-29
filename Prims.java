@@ -2,18 +2,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Prims {
-    int [][] graph = {
-        
-        //1   2  3  4  5  6  7  8
-        {0, 0, 355, 0, 0, 0, 0, 695},
-        {0, 0, 74, 0, 0, 0, 348, 0},
-        {355, 74, 0, 262, 0, 0, 269, 0},
-        {0, 0, 262, 0, 0, 0, 242, 0},
-        {0, 0, 0, 0, 0, 230, 306, 0},
-        {0, 0, 0, 0, 230, 0, 83, 0},
-        {0, 348, 269, 242, 306, 83, 0, 151},
-        {695, 0, 0, 0, 0, 0, 151, 0}
-    };
+        // {0, 0, 355, 0, 0, 0, 0, 695},
+        // {0, 0, 74, 0, 0, 0, 348, 0},
+        // {355, 74, 0, 262, 0, 0, 269, 0},
+        // {0, 0, 262, 0, 0, 0, 242, 0},
+        // {0, 0, 0, 0, 0, 230, 306, 0},
+        // {0, 0, 0, 0, 230, 0, 83, 0},
+        // {0, 348, 269, 242, 306, 83, 0, 151},
+        // {695, 0, 0, 0, 0, 0, 151, 0}
+    private int [][] graph;
     private int[] vertex = {1, 2, 3, 4, 5, 6, 7, 8};
     private int m = 0;
     private int n = vertex.length;
@@ -21,12 +18,28 @@ public class Prims {
     private int tmp_v2;
     private ArrayList<Integer> tmp_e = new ArrayList<>();
     private int root;
-    private boolean [] visited = new boolean[graph.length];
+    private boolean [] visited;
 
     public Prims(){
         Scanner sc = new Scanner(System.in);
         System.out.println("-------Prim's Program-------");
-        System.out.println("Please Enter node 1 - 8:");
+        System.out.println("*Enter row and col for Graph*");
+        System.out.print("row: ");
+        int row = sc.nextInt();
+        System.out.println();
+        System.out.print("col: ");
+        int col = sc.nextInt();
+        graph = new int[row][col];
+        visited = new boolean[graph.length];
+        System.out.println("------Enter edege in graph------");
+        for (int i = 0; i < graph.length; i++){
+            System.out.print("Enter num in row " + (i + 1) + " : ");
+            for (int j = 0; j < graph[0].length; j++){
+                graph[i][j] = sc.nextInt();
+            }
+        }
+        System.out.println("-----Please Enter root node-----");
+        System.out.print("Enter root node 1 - 8:");
         root = sc.nextInt();
         root--;
         sc.close();
