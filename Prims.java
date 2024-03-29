@@ -1,9 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 public class Prims {
     int [][] graph = {
@@ -31,7 +26,6 @@ public class Prims {
         System.out.println("-------Prim's Program-------");
         
         runPrims();
-        // findMin(root);
     }
     public void runPrims(){
         while (m < n - 1){
@@ -49,11 +43,7 @@ public class Prims {
                     }
                 }
             }
-            // System.out.println("TMP E after remove: " + tmp_e);
             System.out.println("Node " + tmp_v1 + " to Node " + tmp_v2+ " " + min);
-            // for (int[] arr : graph){
-            //     System.out.println(Arrays.toString(arr));
-            // }
             m++;
         }
     }
@@ -61,11 +51,10 @@ public class Prims {
         getVertex(n);
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < tmp_e.size(); i++){
-            if (tmp_e.get(i) < min && visited[n] == false){
+            if (tmp_e.get(i) < min){
                 min = tmp_e.get(i);
             }
         }
-        // System.out.println(tmp_e);
         return min;
     }
     public void getVertex(int n){
@@ -73,7 +62,6 @@ public class Prims {
             if (graph[n][i] != 0){
                 int tmp = graph[n][i];
                 tmp_e.add(tmp);
-                // tmp_e.stream().distinct().collect(Collectors.toList());
                 
             }
         }

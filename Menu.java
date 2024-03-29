@@ -22,6 +22,7 @@ public class Menu {
                 break;
         
             case 2:
+                Prims p = new Prims();
                 break;
             case 3:
                 break;
