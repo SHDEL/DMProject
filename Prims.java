@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Prims {
     int [][] graph = {
@@ -19,12 +20,16 @@ public class Prims {
     private int tmp_v1;
     private int tmp_v2;
     private ArrayList<Integer> tmp_e = new ArrayList<>();
-    private int root = 0;
+    private int root;
     private boolean [] visited = new boolean[graph.length];
 
     public Prims(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("-------Prim's Program-------");
-        
+        System.out.println("Please Enter node 1 - 8:");
+        root = sc.nextInt();
+        root--;
+        sc.close();
         runPrims();
     }
     public void runPrims(){
