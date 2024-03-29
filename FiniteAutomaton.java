@@ -2,6 +2,7 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
+
 public class FiniteAutomaton {
     private int state;
     private int[][] table = {{1, 0}, {1, 2}, {1, 0}, {3, 0}, {1, 4}, {5, 0}};
