@@ -25,6 +25,7 @@ public class Menu {
                 Prims p = new Prims();
                 break;
             case 3:
+                ShortestPath d = new ShortestPath();
                 break;
             case 4:
                 FiniteAutomaton f = new FiniteAutomaton();

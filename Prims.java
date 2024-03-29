@@ -45,7 +45,7 @@ public class Prims {
         sc.close();
         runPrims();
     }
-    public void runPrims(){
+    private void runPrims(){
         while (m < n - 1){
             int min = findMin(root);
             for (int i = root; i < graph.length; i++){
@@ -65,8 +65,8 @@ public class Prims {
             m++;
         }
     }
-    public int findMin(int n){
-        getVertex(n);
+    private int findMin(int n){
+        getEdge(n);
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < tmp_e.size(); i++){
             if (tmp_e.get(i) < min){
@@ -75,7 +75,7 @@ public class Prims {
         }
         return min;
     }
-    public void getVertex(int n){
+    private void getEdge(int n){
         for (int i = 0; i < graph[n].length; i++){
             if (graph[n][i] != 0){
                 int tmp = graph[n][i];
