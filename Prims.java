@@ -38,6 +38,7 @@ public class Prims {
                 graph[i][j] = sc.nextInt();
             }
         }
+
         System.out.println("-----Please Enter root node-----");
         System.out.print("Enter root node 1 - 8:");
         root = sc.nextInt();
@@ -65,6 +66,7 @@ public class Prims {
             m++;
         }
     }
+    
     private int findMin(int n){
         getEdge(n);
         int min = Integer.MAX_VALUE;

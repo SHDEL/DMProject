@@ -11,6 +11,7 @@ public class FiniteAutomaton {
     public FiniteAutomaton(){
         homeProgram();
     }
+
     public boolean accept(String input) {
         inputState = input.split(" ");
         int root = 0; // s1

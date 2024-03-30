@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+// import java.lang.reflect.Array;
 import java.util.Scanner;
 
 
@@ -14,28 +14,26 @@ public class Menu {
         System.out.print("Enter number to select: ");
         int ans = sc.nextInt();
         run(ans);
+        sc.close();
     }
     public static void run(int n){
         switch (n) {
             case 1:
-                Kruskal k = new Kruskal();
+                new Kruskal();
                 break;
         
             case 2:
-                Prims p = new Prims();
+                new Prims();
                 break;
             case 3:
-                ShortestPath d = new ShortestPath();
+            new ShortestPath();
                 break;
             case 4:
-                FiniteAutomaton f = new FiniteAutomaton();
+                new FiniteAutomaton();
                 break;
             default:
 
                 break;
         }
-
     }
-
-    
 }

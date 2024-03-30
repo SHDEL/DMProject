@@ -1,92 +1,100 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 public class ShortestPath {
-    // private int [][] graph = {
-        
-    //     //1   2  3  4  5  6  7  8
-    //     {0, 0, 355, 0, 0, 0, 0, 695},
-    //     {0, 0, 74, 0, 0, 0, 348, 0},
-    //     {355, 74, 0, 262, 0, 0, 269, 0},
-    //     {0, 0, 262, 0, 0, 0, 242, 0},
-    //     {0, 0, 0, 0, 0, 230, 306, 0},
-    //     {0, 0, 0, 0, 230, 0, 83, 0},
-    //     {0, 348, 269, 242, 306, 83, 0, 151},
-    //     {695, 0, 0, 0, 0, 0, 151, 0}
-    // };
-    private int [][] graph = {
-        {0, 3, 4, 0, 0, 0},
-        {3, 0, 0, 6, 5, 0},
-        {4, 0, 0, 0, 6, 0},
-        {0, 6, 0, 0, 2, 0},
-        {0, 5, 6, 2, 0, 12},
-        {0, 0, 0, 7, 12, 0},
-    };
-    private int[] vertex = {1, 2, 3, 4, 5, 6, 7, 8};
-    private int m = 0;
-    private int n = vertex.length;
-    private int tmp_v1;
-    private int tmp_v2;
-    private ArrayList<Integer> tmp_e = new ArrayList<>();
-    private ArrayList<Integer> total_e = new ArrayList<>();
-    private int root;
-    private int end;
-    private boolean [] visited;
-
+    private static final int INF = Integer.MAX_VALUE;
+    
     public ShortestPath() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("-------ShortestPath Dijkstra's Program-------");
-        System.out.println("-----Please Enter root node and end node-----");
-        System.out.print("Enter root node 1 - 8:");
-        root = sc.nextInt();
-        System.out.print( "\n "+ "Enter root node 1 - 8:");
-        end = sc.nextInt();
-        root--;
-        end--;
-        runShortestPah();
-    }
-    private void runShortestPah(){
-        while (m < n - 1){
-            int min = findMin(root);
-            // for (int i = root; i < graph.length; i++){
-            //     for (int j = 0; j < graph[0].length; j++){
-            //         if (graph[i][j] == min){
-            //             graph[i][j] = 0;
-            //             graph[j][i] = 0;
-            //             visited[i] = true;
-            //             tmp_v1 = i + 1;
-            //             tmp_v2 = j + 1;
-            //             root = j;
-            //             tmp_e.remove(tmp_e.indexOf(min));
-            //         }
-            //     }
-            // }
-            // System.out.println("Node " + tmp_v1 + " to Node " + tmp_v2+ " " + min);
-            root++;
-            m++;
+        Scanner scanner = new Scanner(System.in);
+        
+        // ใส่จำนวนจุด
+        System.out.print("Enter the number of Vertex: ");
+        int n = scanner.nextInt();
+        
+        // ใส่ชื่อจุด
+        String[] nodeNames = new String[n];
+        System.out.println("Enter the name of each vertex: ");
+        for (int i = 0; i < n; i++) {
+            nodeNames[i] = scanner.next();
         }
-    }
-    private int findMin(int n){
-        getEdge(n);
-        int min = Integer.MAX_VALUE;
-        for (int i = 0; i < total_e.size(); i++){
-            if (tmp_e.get(i) < min){
-                min = tmp_e.get(i);
+        
+        // ใส่กราฟ ด้วย matrix
+        int[][] graph = new int[n][n];
+        System.out.println("Enter the distance between vertex (metrix): ");
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                graph[i][j] = scanner.nextInt();
             }
         }
-        return min;
+        
+        // รับจุดต้นทาง
+        System.out.print("Enter the source vertex (Starting vertex): ");
+        String srcName = scanner.next();
+        int src = findNodeIndex(nodeNames, srcName);
+        
+        dijkstra(graph, src, nodeNames);
+        
+        scanner.close();
     }
-    private void getEdge(int n){
-        int sum = 0;
-        for (int i = 0; i < graph[n].length; i++){
-            if (graph[n][i] != 0 && m > 0){
-                sum += graph[n][i];
-            }
-            else if (graph[n][i] != 0){
-                tmp_e.add(graph[n][i]);
+
+    private static int findNodeIndex(String[] nodeNames, String nodeName) {
+        for (int i = 0; i < nodeNames.length; i++) {
+            if (nodeNames[i].equals(nodeName)) {
+                return i;
             }
         }
-        tmp_e.add(sum);
-        System.out.println("sum: " + tmp_e);
+        return -1; // ถ้าไม่เจอชื่อจุดที่ใส่
+    }
+
+    private static void dijkstra(int[][] graph, int src, String[] nodeNames) {
+        int V = graph.length;
+        int[] dist = new int[V];
+        int[] parent = new int[V];
+        boolean[] visited = new boolean[V];
+        Arrays.fill(dist, INF);
+        Arrays.fill(parent, -1);
+        dist[src] = 0;
+
+        for (int count = 0; count < V - 1; count++) {
+            int u = minDistance(dist, visited);
+            visited[u] = true;
+            for (int v = 0; v < V; v++) {
+                if (!visited[v] && graph[u][v] != 0 && dist[u] != INF && dist[u] + graph[u][v] < dist[v]) {
+                    dist[v] = dist[u] + graph[u][v];
+                    parent[v] = u;
+                }
+            }
+        }
+
+        printSolution(dist, parent, nodeNames);
+    }
+
+    private static int minDistance(int[] dist, boolean[] visited) {
+        int min = INF;
+        int minIndex = -1;
+        for (int v = 0; v < dist.length; v++) {
+            if (!visited[v] && dist[v] <= min) {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+
+    private static void printSolution(int[] dist, int[] parent, String[] nodeNames) {
+        System.out.println("Vertex \t\t Distance from Source \t Path");
+        for (int i = 0; i < dist.length; i++) {
+            System.out.print(nodeNames[i] + " \t\t " + dist[i] + "\t\t\t");
+            printPath(parent, i, nodeNames);
+            System.out.println();
+        }
+    }
+
+    private static void printPath(int[] parent, int j, String[] nodeNames) {
+        if (parent[j] == -1) {
+            System.out.print(nodeNames[j]);
+            return;
+        }
+        printPath(parent, parent[j], nodeNames);
+        System.out.print(" -> " + nodeNames[j]);
     }
 }
