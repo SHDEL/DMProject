@@ -44,6 +44,7 @@ public class Kruskal {
                     }
                 }
             }
+            
             System.out.println("Node " + tmp_v1 + " to Node " + tmp_v2+ " " + min);
             // for (int[] arr : graph){
             //     System.out.println(Arrays.toString(arr));
