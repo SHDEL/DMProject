@@ -60,8 +60,5 @@ public class FiniteAutomaton {
             System.out.println(input +  " is Rejected");
         }
         sc.close();
-        
-        
-        
     }
 }

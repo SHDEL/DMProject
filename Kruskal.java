@@ -1,10 +1,9 @@
 import java.util.Scanner;
-
 public class Kruskal {
     private int [][] graph;
-    private int[] vertex = {1, 2, 3, 4, 5, 6, 7, 8};
+    private int[] vertex;
     private int m = 0;
-    private int n = vertex.length;
+    private int n;
     private int tmp_v1;
     private int tmp_v2;
     private boolean [] visited;
@@ -27,10 +26,13 @@ public class Kruskal {
                 graph[i][j] = sc.nextInt();
             }
         }
+        vertex = new int[graph.length];
+        n = vertex.length;
         sc.close();
         runKruskal();
     }
-    public void runKruskal(){
+    private void runKruskal(){
+        System.out.println("-----Minimum Spanning Trees-----");
         while (m < n - 1){
             int min = findMinWeight();
             for (int i = 0; i < graph.length; i++){
@@ -46,23 +48,18 @@ public class Kruskal {
             }
             
             System.out.println("Node " + tmp_v1 + " to Node " + tmp_v2+ " " + min);
-            // for (int[] arr : graph){
-            //     System.out.println(Arrays.toString(arr));
-            // }
             m++;
         }
     }
-    public int findMinWeight(){
+    private int findMinWeight(){
         int min = Integer.MAX_VALUE;
         for (int i = 0; i < graph.length; i++){
-            // System.out.println("loop i");
             for (int j = 0; j < graph[0].length; j++){
                 if (graph[i][j] != 0 && graph[i][j] < min && visited[i] == false){
                     min = graph[i][j];
                 }
                 
             }
-            
         }
         return min;
     }
